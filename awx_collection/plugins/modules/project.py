@@ -169,16 +169,10 @@ options:
       required: False
       default: 2
       type: float
-    signature_validation:
-      description:
-        - Whether to validate the signature during project update.
-      required: False
-      default: False
-      type: bool
     signature_validation_credential:
       description:
         - Name of the credential to use for signature validation.
-        - Required if C(signature_validation=True)
+        - If signature validation credential is provided, signature validation will be enabled. 
       type: str
 
 extends_documentation_fragment: awx.awx.auth
@@ -291,16 +285,12 @@ def main():
         wait=dict(type='bool', default=True),
         update_project=dict(default=False, type='bool'),
         interval=dict(default=2.0, type='float'),
-        signature_validation=dict(type='bool', default=False),
         signature_validation_credential=dict(type='str'),
     )
 
     # Create a module for ourselves
     module = ControllerAPIModule(
         argument_spec=argument_spec,
-        required_if=[
-            ("signature_validation", True, ["signature_validation_credential"]),
-        ],
     )
 
     # Extract our parameters
@@ -397,7 +387,6 @@ def main():
         'custom_virtualenv',
         'description',
         'allow_override',
-        'signature_validation',
     ):
         field_val = module.params.get(field_name)
         if field_val is not None:
