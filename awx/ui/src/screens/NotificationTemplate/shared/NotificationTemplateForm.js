@@ -85,6 +85,7 @@ function NotificationTemplateFormFields({ defaultMessages, template }) {
             { value: 'pagerduty', key: 'pagerduty', label: 'Pagerduty' },
             { value: 'rocketchat', key: 'rocketchat', label: 'Rocket.Chat' },
             { value: 'slack', key: 'slack', label: 'Slack' },
+            { value: 'teams', key: 'teams', label: 'Microsoft Teams' },
             { value: 'twilio', key: 'twilio', label: 'Twilio' },
             { value: 'webhook', key: 'webhook', label: 'Webhook' },
           ]}

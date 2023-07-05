@@ -34,6 +34,10 @@ const typeFieldNames = {
     'rocketchat_no_verify_ssl',
   ],
   slack: ['channels', 'token', 'hex_color'],
+  teams: [
+    'teams_url',
+    'teams_no_verify_ssl',
+  ],
   twilio: ['account_token', 'from_number', 'to_numbers', 'account_sid'],
   webhook: [
     'username',

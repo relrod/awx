@@ -36,6 +36,7 @@ const TypeFields = {
   pagerduty: PagerdutyFields,
   rocketchat: RocketChatFields,
   slack: SlackFields,
+  teams: TeamsFields,
   twilio: TwilioFields,
   webhook: WebhookFields,
 };
@@ -381,6 +382,26 @@ function SlackFields() {
         name="notification_configuration.hex_color"
         type="text"
         tooltip={helpText.slackColor}
+      />
+    </>
+  );
+}
+
+function TeamsFields() {
+  return (
+    <>
+      <FormField
+        id="teams-url"
+        label={t`Target URL`}
+        name="notification_configuration.teams_url"
+        type="text"
+        validate={combine([required(null), url()])}
+        isRequired
+      />
+      <CheckboxField
+        id="teams-ssl"
+        label={t`Disable SSL verification`}
+        name="notification_configuration.teams_no_verify_ssl"
       />
     </>
   );

@@ -27,6 +27,7 @@ from awx.main.notifications.webhook_backend import WebhookBackend
 from awx.main.notifications.mattermost_backend import MattermostBackend
 from awx.main.notifications.grafana_backend import GrafanaBackend
 from awx.main.notifications.rocketchat_backend import RocketChatBackend
+from awx.main.notifications.teams_backend import TeamsBackend
 from awx.main.notifications.irc_backend import IrcBackend
 
 
@@ -45,6 +46,7 @@ class NotificationTemplate(CommonModelNameNotUnique):
         ('webhook', _('Webhook'), WebhookBackend),
         ('mattermost', _('Mattermost'), MattermostBackend),
         ('rocketchat', _('Rocket.Chat'), RocketChatBackend),
+        ('teams', _('Microsoft Teams'), TeamsBackend),
         ('irc', _('IRC'), IrcBackend),
     ]
     NOTIFICATION_TYPE_CHOICES = sorted([(x[0], x[1]) for x in NOTIFICATION_TYPES])
@@ -510,7 +512,7 @@ class JobNotificationMixin(object):
         for nt in set(notification_templates.get(self.STATUS_TO_TEMPLATE_TYPE[status], [])):
             (msg, body) = self.build_notification_message(nt, status)
 
-            # Use kwargs to force late-binding
+            # Use kwargs to force early-binding
             # https://stackoverflow.com/a/3431699/10669572
             def send_it(local_nt=nt, local_msg=msg, local_body=body):
                 def _func():

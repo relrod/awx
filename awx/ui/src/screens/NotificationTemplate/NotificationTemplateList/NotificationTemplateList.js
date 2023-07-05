@@ -139,6 +139,7 @@ function NotificationTemplatesList() {
                   ['pagerduty', t`Pagerduty`],
                   ['rocketchat', t`Rocket.Chat`],
                   ['slack', t`Slack`],
+                  ['teams', t`Teams`],
                   ['twilio', t`Twilio`],
                   ['webhook', t`Webhook`],
                 ],

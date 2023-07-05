@@ -7,6 +7,7 @@ export const NOTIFICATION_TYPES = {
   pagerduty: 'Pagerduty',
   rocketchat: 'Rocket.Chat',
   slack: 'Slack',
+  teams: 'Teams',
   twilio: 'Twilio',
   webhook: 'Webhook',
 };

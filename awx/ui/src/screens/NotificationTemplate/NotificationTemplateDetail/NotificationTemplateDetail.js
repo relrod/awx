@@ -334,6 +334,22 @@ function NotificationTemplateDetail({ template, defaultMessages }) {
             />
           </>
         )}
+        {template.notification_type === 'teams' && (
+          <>
+            <Detail
+              label={t`Target URL`}
+              value={configuration.teams_url}
+              dataCy="nt-detail-teams-url"
+            />
+            <Detail
+              label={t`Disable SSL Verification`}
+              value={
+                configuration.teams_no_verify_ssl ? t`True` : t`False`
+              }
+              dataCy="nt-detail-disable-ssl"
+            />
+          </>
+        )}
         {template.notification_type === 'twilio' && (
           <>
             <Detail
@@ -456,7 +472,7 @@ function NotificationTemplateDetail({ template, defaultMessages }) {
 
 function CustomMessageDetails({ messages, defaults, type }) {
   const showMessages = type !== 'webhook';
-  const showBodies = ['email', 'pagerduty', 'webhook'].includes(type);
+  const showBodies = ['email', 'pagerduty', 'teams', 'webhook'].includes(type);
 
   return (
     <>
