@@ -569,7 +569,7 @@ Dockerfile.dev: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 
 ## Build awx_devel image for docker compose development environment
 docker-compose-build: Dockerfile.dev
-	DOCKER_BUILDKIT=1 docker build \
+	DOCKER_BUILDKIT=1 docker buildx build --platform linux/amd64,linux/arm64 \
 		-f Dockerfile.dev \
 		-t $(DEVEL_IMAGE_NAME) \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
