@@ -569,7 +569,7 @@ Dockerfile.dev: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 
 ## Build awx_devel image for docker compose development environment
 docker-compose-build: Dockerfile.dev
-	DOCKER_BUILDKIT=1 docker buildx build --platform linux/amd64,linux/arm64 \
+	DOCKER_BUILDKIT=1 docker buildx build --load --platform linux/amd64,linux/arm64 \
 		-f Dockerfile.dev \
 		-t $(DEVEL_IMAGE_NAME) \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
@@ -631,7 +631,8 @@ Dockerfile: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 
 ## Build awx image for deployment on Kubernetes environment.
 awx-kube-build: Dockerfile
-	DOCKER_BUILDKIT=1 docker build -f Dockerfile \
+	DOCKER_BUILDKIT=1 docker buildx build --load --platform linux/amd64,linux/arm64 \
+		-f Dockerfile \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg SETUPTOOLS_SCM_PRETEND_VERSION=$(VERSION) \
 		--build-arg HEADLESS=$(HEADLESS) \
@@ -648,7 +649,8 @@ Dockerfile.kube-dev: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 
 ## Build awx_kube_devel image for development on local Kubernetes environment.
 awx-kube-dev-build: Dockerfile.kube-dev
-	DOCKER_BUILDKIT=1 docker build -f Dockerfile.kube-dev \
+	DOCKER_BUILDKIT=1 docker buildx build --load --platform linux/amd64,linux/arm64 \
+	    -f Dockerfile.kube-dev \
 	    --build-arg BUILDKIT_INLINE_CACHE=1 \
 	    --cache-from=$(DEV_DOCKER_TAG_BASE)/awx_kube_devel:$(COMPOSE_TAG) \
 	    -t $(DEV_DOCKER_TAG_BASE)/awx_kube_devel:$(COMPOSE_TAG) .
